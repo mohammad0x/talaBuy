@@ -42,7 +42,7 @@ def Register(request):
             return redirect('shop:register')
         if form.is_valid():
             data = form.cleaned_data
-            user = MyUser.objects.create_user(email=data['email'], username=data['username'], password=data['password'], is_hair_style=data['is_hair_style'])
+            user = MyUser.objects.create_user(email=data['email'], username=data['username'], password=data['password'])
             user.save()
             return redirect('shop:profile')
         else:
@@ -56,3 +56,4 @@ def Register(request):
 def Logout_view(request):
     logout(request)
     return redirect('hair_style:home')
+
