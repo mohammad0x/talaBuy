@@ -80,3 +80,52 @@ class MyUser(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
+class Profile(models.Model):
+    user = models.OneToOneField(MyUser, on_delete=models.CASCADE, related_name="Profile")
+    first_name = models.CharField(max_length=50, blank=True, null=False)
+    last_name = models.CharField(max_length=50, blank=True, null=False)
+    nationality_code = models.CharField(max_length=10, blank=True, null=True)
+    phone = models.CharField(max_length=11, blank=True, null=True)
+    verify_code = models.CharField(max_length=4, blank=True, null=True)
+    city = models.CharField(max_length=70, blank=True, null=False)
+    address = models.CharField(max_length=200, blank=True, null=False)
+    photo = models.ImageField(upload_to='profile_image/')
+
+
+def save_profile_user(sender, **kwargs):
+    if kwargs['created']:
+        profile_user = Profile(user=kwargs['instance'])
+        profile_user.save()
+
+
+post_save.connect(save_profile_user, sender=MyUser)
+
+
+class Category_Service(models.Model):
+    title = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='category_image/')
+    status = models.BooleanField(default=True)
+    position = models.IntegerField()
+
+    class Meta:
+        ordering = ['position']
+
+    def __str__(self):
+        return self.title
+class Service(models.Model):
+    category = models.ForeignKey(Category_Service, on_delete=models.CASCADE, related_name='Service')
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name="Service")
+    title = models.CharField(max_length=100)
+    price = models.IntegerField()
+    desc = models.TextField()
+    verify = models.BooleanField(default=False)
+    publish = models.DateTimeField(default=timezone.now)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+
+
