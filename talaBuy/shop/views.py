@@ -15,9 +15,11 @@ def Login(request):
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None:
+            print('hi')
             login(request, user)
-            return redirect("shop:login_phone")
+            return redirect("shop:home")
         else:
+            print('asd')
             context = {
                 "username": username,
                 "errormessage": "User not found"
@@ -44,7 +46,7 @@ def Register(request):
             data = form.cleaned_data
             user = MyUser.objects.create_user(email=data['email'], username=data['username'], password=data['password'])
             user.save()
-            return redirect('shop:profile')
+            return redirect('shop:login')
         else:
             messages.error(request, 'Something is wrong! Please try again', 'danger')
     else:
@@ -57,3 +59,6 @@ def Logout_view(request):
     logout(request)
     return redirect('hair_style:home')
 
+@login_required(login_url='/login/')
+def Home(request):
+    return render(request,'shop/home/home.html')
