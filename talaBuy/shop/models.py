@@ -7,7 +7,7 @@ from django.utils import timezone
 
 # Create your models here.
 class MyUserManager(BaseUserManager):
-    def create_user(self, email, username, password, is_hair_style):
+    def create_user(self, email, username, password):
         """
         Creates and saves a User with the given email, date of
         birth and password.
@@ -18,7 +18,6 @@ class MyUserManager(BaseUserManager):
         user = self.model(
             email=self.normalize_email(email),
             username=username,
-            is_hair_style=is_hair_style
         )
 
         user.set_password(password)
@@ -33,7 +32,7 @@ class MyUserManager(BaseUserManager):
 
 
 
-    def create_superuser(self, email, username, password, is_hair_style=True):
+    def create_superuser(self, email, username, password):
         """
         Creates and saves a superuser with the given email, date of
         birth and password.
@@ -42,7 +41,6 @@ class MyUserManager(BaseUserManager):
             email,
             password=password,
             username=username,
-            is_hair_style=is_hair_style
         )
         user.is_admin = True
         user.save(using=self._db)
