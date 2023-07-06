@@ -25,38 +25,39 @@
                   <p>Please Create Service</p>
                   <div class="form-outline mb-4">
                     <label class="form-label" for="form2Example11">Title</label>
-                    <input type="text" id="form2Example111" name="title" class="form-control"
+                    <input type="text" value="{{ service.title }}" id="form2Example111" name="title" class="form-control"
                       placeholder="title" />
                   </div>
 
                   <div class="form-outline mb-4">
                     <label class="form-label" for="form2Example11">Price</label>
-                    <input type="text" id="form2Example11" name="price" class="form-control"
+                    <input type="text" id="form2Example11" value="{{ service.price }}"  name="price" class="form-control"
                       placeholder="price" />
                   </div>
 
                   <div class="form-outline mb-4">
                     <label class="form-label" for="form2Example11">Carat</label>
-                    <input type="number" id="form2Example33" maxlength="2" name="carat" class="form-control"
+                    <input type="number" id="form2Example33" maxlength="2" value="{{ service.carat }}"  name="carat" class="form-control"
                       placeholder="carat" />
                   </div>
 
                   <div class="form-outline mb-4">
                     <label class="form-label" for="form2Example11">Gram</label>
 
-                    <input type="number" id="form2Example43" maxlength="2" name="gram" class="form-control"
+                    <input type="number" value="{{ service.gram }}"  id="form2Example43" maxlength="2" name="gram" class="form-control"
                       placeholder="gram" />
                   </div>
 
                   <div class="form-outline mb-4">
                     <label class="form-label" for="form2Example22">desc</label>
-                    <input type="text" id="form2Example22" name="desc" class="form-control" placeholder="descrption" />
+                    <input type="text" id="form2Example22" value="{{ service.desc }}"  name="desc" class="form-control" placeholder="descrption" />
                   </div>
 
 
                   <div class="form-outline mb-4">
                     <label class="form-label" for="form2Example22">Category</label>
                     <select type="text" name="category" class="form-control" >
+                        <option value = "{{ service.category.id }}">{{ service.category.title }}</option>
                       {% for cate in categoryservice %}
                             <option value = "{{ cate.id }}">{{ cate.title }}</option>
                       {% endfor %}
@@ -66,7 +67,7 @@
 
 
                   <div class="text-center pt-1 mb-5 pb-1">
-                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Service</button>
+                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">edit Service</button>
                   </div>
 
 

@@ -1,4 +1,4 @@
-from audioop import reverse
+from django.urls import reverse ,reverse_lazy
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
@@ -91,7 +91,7 @@ class edit_service(UpdateView):
     template_name = 'shop/service/edit_service.html'
     fields = ['title', 'price', 'desc', 'category']
     def get_success_url(self):
-        return reverse('shop:profile')
+        return reverse('shop:home')
 
 
 @login_required(login_url='/login/')

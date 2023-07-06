@@ -7,5 +7,6 @@ urlpatterns = [
     path('logout/',Logout_view , name = 'logout'),
     path('home/',Home , name = 'home'),
     path('service/',createService , name = 'service'),
+    path('edit_service/<int:pk>/', edit_service.as_view(), name='editservices'),
 
 ]

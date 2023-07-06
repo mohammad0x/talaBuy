@@ -37,8 +37,3 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
         fields = ['first_name', 'last_name', 'nationality_code', 'phone', 'city', 'address', 'photo']
 
-class CreateService(forms.ModelForm):
-
-    class Meta:
-        model = Service
-        fields = []
