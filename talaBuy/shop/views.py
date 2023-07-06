@@ -1,6 +1,10 @@
+from audioop import reverse
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
+from django.views.generic import UpdateView
+
 from .models import *
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
@@ -66,14 +70,31 @@ def createService(request):
     if request.method == 'POST':
         title = request.POST['title']
         price = request.POST['price']
+        carat = request.POST['carat']
+        gram = request.POST['gram']
         desc = request.POST['desc']
         category = request.POST['category']
         user = request.user.id
         Service.objects.create(title=title, price=price, desc=desc,
-                               category_id=category,user_id=user)
+                               category_id=category,user_id=user,
+                               carat=carat,gram=gram)
         return redirect('shop:home')
 
     else:
         Categoryservice = Category_Service.objects.all()
         context = {'categoryservice': Categoryservice}
         return render(request, 'shop/service/service.html', context)
+
+
+class edit_service(UpdateView):
+    model = Service
+    template_name = 'shop/service/edit_service.html'
+    fields = ['title', 'price', 'desc', 'category']
+    def get_success_url(self):
+        return reverse('shop:profile')
+
+
+@login_required(login_url='/login/')
+def delete_service(request, id):
+    Service.objects.filter(id=id).delete()
+    return redirect('shop:home', request.user.id)

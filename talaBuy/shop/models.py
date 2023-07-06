@@ -117,6 +117,8 @@ class Service(models.Model):
     category = models.ForeignKey(Category_Service, on_delete=models.CASCADE, related_name='Service')
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name="Service")
     title = models.CharField(max_length=100)
+    carat = models.CharField(max_length=100)
+    gram = models.CharField(max_length=100)
     price = models.IntegerField()
     desc = models.TextField()
     verify = models.BooleanField(default=False)
