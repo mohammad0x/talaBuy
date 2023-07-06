@@ -97,4 +97,6 @@ class edit_service(UpdateView):
 @login_required(login_url='/login/')
 def delete_service(request, id):
     Service.objects.filter(id=id).delete()
-    return redirect('shop:home', request.user.id)
+    return redirect('shop:home')
+
+
