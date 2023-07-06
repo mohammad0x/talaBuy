@@ -15,11 +15,9 @@ def Login(request):
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            print('hi')
             login(request, user)
             return redirect("shop:home")
         else:
-            print('asd')
             context = {
                 "username": username,
                 "errormessage": "User not found"
@@ -62,3 +60,20 @@ def Logout_view(request):
 @login_required(login_url='/login/')
 def Home(request):
     return render(request,'shop/home/home.html')
+
+@login_required(login_url='/login/')
+def createService(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        price = request.POST['price']
+        desc = request.POST['desc']
+        category = request.POST['category']
+        user = request.user.id
+        Service.objects.create(title=title, price=price, desc=desc,
+                               category_id=category,user_id=user)
+        return redirect('shop:home')
+
+    else:
+        Categoryservice = Category_Service.objects.all()
+        context = {'categoryservice': Categoryservice}
+        return render(request, 'shop/service/service.html', context)
