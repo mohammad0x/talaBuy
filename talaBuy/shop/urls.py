@@ -9,5 +9,6 @@ urlpatterns = [
     path('service/',createService , name = 'service'),
     path('edit_service/<int:pk>/', edit_service.as_view(), name='editservices'),
     path('delete_service/<int:id>', delete_service, name='delete_service'),
+    path('showService/', showService, name='showService'),
 
 ]

@@ -63,7 +63,13 @@ def Logout_view(request):
 
 @login_required(login_url='/login/')
 def Home(request):
-    return render(request,'shop/home/home.html')
+    context = {
+        'service' : Service.objects.filter(verify=True),
+        'category' : Category_Service.objects.filter(status=True)
+    }
+    return render(request,'shop/home/home.html',context)
+
+
 
 @login_required(login_url='/login/')
 def createService(request):
@@ -99,4 +105,10 @@ def delete_service(request, id):
     Service.objects.filter(id=id).delete()
     return redirect('shop:home')
 
-
+@login_required(login_url='/login/')
+def showService(request):
+    service= Service.objects.all()
+    context = {
+        "service" : service
+    }
+    return render(request , "shop/home/post.html", context)

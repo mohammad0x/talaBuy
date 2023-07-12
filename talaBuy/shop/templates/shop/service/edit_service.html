@@ -19,7 +19,7 @@
                     style="width: 185px;" alt="logo">
                   <h4 class="mt-1 mb-5 pb-1">We are The Lotus Team</h4>
                 </div>
-
+            {% if request.user.id == service.user_id %}
                 <form method="post">
                   {% csrf_token %}
                   <p>Please Create Service</p>
@@ -73,6 +73,7 @@
 
 
                 </form>
+               {% endif %}
 
               </div>
             </div>
